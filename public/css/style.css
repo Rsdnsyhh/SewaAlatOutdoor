@@ -797,141 +797,10 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     }
 }
 
-.item-detail-container {
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 30px;
-    max-width: 900px; 
-    margin: 0 auto; 
-    padding: 20px;
-    background-color: #fff; 
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dark-mode .item-detail-container { 
-    background-color: var(--dm-card-bg); 
-}
-
-.item-detail-image-container { 
-    flex: 1; 
-    min-width: 280px; 
-}
-
-.item-detail-info { 
-    flex: 2; 
-    min-width: 280px; 
-}
-
-.item-detail-image {
-    width: 100%; 
-    height: auto; 
-    border-radius: 10px;
-    border: 1px solid #ddd; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.item-detail-image-placeholder {
-    width: 100%; 
-    height: 300px; 
-    border-radius: 10px;
-    background-color: #f5f5f5; 
-    border: 2px dashed #ddd;
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    color: #888; 
-    font-weight: bold;
-}
-
-.dark-mode .item-detail-image { 
-    border-color: #555; 
-}
-
-.dark-mode .item-detail-image-placeholder {
-    background-color: #1a3240; 
-    border-color: #555; 
-    color: #aaa;
-}
-
-.item-detail-info h3 { 
-    font-size: 1.8em; 
-    color: var(--secondary-color); 
-    margin-bottom: 15px; 
-}
-
-.item-detail-info p { 
-    margin-bottom: 10px; 
-    font-size: 1.1em; 
-}
-
-.item-description {
-    background-color: #f9f9f9; 
-    padding: 15px; 
-    border-radius: 5px;
-    min-height: 50px; 
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.dark-mode .item-description { 
-    background-color: #1a3240; 
-}
-
-.detail-divider { 
-    margin: 20px 0; 
-    border: 0; 
-    border-top: 1px solid #eee; 
-}
-
-.dark-mode .detail-divider { 
-    border-top-color: #333; 
-}
-
-.stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.stat-card {
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.dark-mode .stat-card { 
-    background-color: var(--dm-card-bg); 
-}
-
-.stat-card h3 {
-    font-size: 2.5em;
-    color: var(--secondary-color);
-    margin: 0;
-}
-
-.stat-card p {
-    font-size: 1.1em;
-    color: #555;
-    margin: 5px 0 15px 0;
-}
-
-.dark-mode .stat-card p { 
-    color: #ccc; 
-}
-
-.stat-card a {
-    text-decoration: none;
-    font-weight: bold;
-    color: var(--primary-color);
-    font-size: 0.9em;
-}
-
-.dark-mode .stat-card a { 
-    color: var(--dm-secondary-color); 
-}
+/* * ==========================================================
+ * == BAGIAN PERBAIKAN UNTUK KATALOG PRODUK ==
+ * ==========================================================
+ */
 
 .product-card-grid {
     display: grid;
@@ -943,9 +812,10 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
 .product-card {
     text-decoration: none;
     color: inherit;
-    padding: 0;
+    padding: 0; 
     display: flex;
     flex-direction: column;
+    height: 100%; 
     text-align: left;
     overflow: hidden;
     background-color: #fff;
@@ -963,42 +833,253 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     background-color: var(--dm-card-bg);
 }
 
-.product-card-image {
+.product-card-img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    aspect-ratio: 4 / 3; 
+    object-fit: cover;   
+    background-color: #f0f0f0;
 }
 
-.product-card-content {
-    padding: 20px;
+.product-card-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    color: #999;
+    font-size: 14px;
 }
-
-.product-card-title {
-    font-size: 1.3em;
-    color: var(--secondary-color);
-    margin-bottom: 10px;
-}
-
-.dark-mode .product-card-title {
-    color: var(--dm-secondary-color);
-}
-
-.product-card-category {
-    font-size: 0.9em;
-    color: #777;
-    margin-bottom: 10px;
-}
-
-.dark-mode .product-card-category {
+.dark-mode .product-card-img-placeholder {
+    background-color: #1a3240; 
     color: #aaa;
 }
 
-.product-card-description {
-    font-size: 0.95em;
-    color: #555;
-    line-height: 1.5;
+.product-card-body {
+    padding: 20px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
 }
 
-.dark-mode .product-card-description {
+/* * ==========================================================
+ * == PERBAIKAN TEKS KARTU (LEBIH KECIL) ==
+ * ==========================================================
+ */
+
+.product-card .product-card-category {
+    font-size: 0.85em; /* Dikecilkan */
+    color: #888;
+    margin-bottom: 8px; /* Jarak dikecilkan */
+}
+
+.dark-mode .product-card .product-card-category {
+    color: #aaa;
+}
+
+.product-card .card-title {
+    font-size: 1.15em;  /* Dikecilkan */
+    color: var(--secondary-color);
+    margin-bottom: 8px; /* Jarak dikecilkan */
+}
+
+.dark-mode .product-card .card-title {
+    color: var(--dm-secondary-color);
+}
+
+.product-card .card-description {
+    font-size: 0.9em;  /* Dikecilkan */
+    color: #555;
+    line-height: 1.4;  /* Dirapatkan */
+    margin-top: auto; 
+}
+
+.dark-mode .product-card .card-description {
     color: #ccc;
 }
+
+
+/* * ==========================================================
+ * == PERBAIKAN TEKS (RATA TENGAH) UNTUK HALAMAN ==
+ * ==========================================================
+ */
+
+#about .container {
+    text-align: center;
+}
+
+#contact .container {
+    text-align: center;
+}
+
+#how .how-list {
+    text-align: left;
+    display: inline-block; 
+    margin: 0 auto;
+}
+
+/* * ==========================================================
+ * == PERBAIKAN UNTUK HALAMAN DETAIL PRODUK ==
+ * ==========================================================
+ */
+
+.detail-container {
+    display: flex;
+    flex-wrap: wrap; /* Agar bisa stack di HP */
+    gap: 30px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.detail-image-wrapper {
+    flex: 1; /* Lebar 1 bagian */
+    min-width: 300px;
+}
+
+.detail-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.detail-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    color: #999;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 2px dashed #ddd;
+}
+
+.detail-info-wrapper {
+    flex: 1.5; /* Lebar 1.5 bagian */
+    min-width: 300px;
+    display: flex;
+    flex-direction: column; 
+}
+
+.detail-info-wrapper h2 { 
+    font-size: 2.2em;
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.detail-info-wrapper .kategori-label,
+.detail-info-wrapper .deskripsi-label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.detail-info-wrapper .kategori-nama {
+    font-size: 1.1em;
+}
+
+.detail-info-wrapper .deskripsi-isi {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.detail-button-group {
+    margin-top: auto; 
+    padding-top: 25px; 
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn, .btn-secondary {
+    text-decoration: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1; 
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Menyesuaikan style tombol dari detail.php sebelumnya */
+.booking-action-container {
+    margin-top: auto;
+    padding-top: 25px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.btn-submit.booking-btn,
+.btn-secondary.booking-btn {
+    text-decoration: none;
+    padding: 12px 25px;
+    font-weight: bold;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    flex: 1; 
+    width: auto; /* Override .btn-submit */
+}
+.btn-submit.booking-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+.btn-submit.booking-btn:hover {
+    background-color: var(--secondary-color);
+}
+.btn-secondary.booking-btn {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+.btn-secondary.booking-btn:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* Dark Mode */
+.dark-mode .detail-container { background-color: var(--dm-card-bg); }
+.dark-mode .detail-image-wrapper img { border-color: #555; }
+.dark-mode .detail-image-placeholder { background-color: #1a3240; color: #aaa; border-color: #555; }
+.dark-mode .detail-info-wrapper .kategori-label,
+.dark-mode .detail-info-wrapper .deskripsi-label { color: var(--dm-secondary-color); }
+.dark-mode .detail-info-wrapper .deskripsi-isi { background-color: #1a3240; }
+.dark-mode .btn-secondary { background-color: #333; color: #eee; border-color: #555; }
+.dark-mode .btn-secondary.booking-btn { background-color: #333; color: #eee; border-color: #555; }

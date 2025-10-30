@@ -67,50 +67,60 @@ try {
     <main>
         <section class="section">
             <div class="container">
-                <div class="item-detail-container">
-                    <div class="item-detail-image-container">
+                
+                <div class="detail-container">
+                    
+                    <div class="detail-image-wrapper">
                         <?php 
                         $image_path = UPLOAD_DIR . htmlspecialchars($item['image'] ?? '');
                         if (!empty($item['image']) && file_exists($image_path)): 
                         ?>
-                            <img src="<?php echo $image_path; ?>" alt="<?php echo htmlspecialchars($item['title']); ?>" class="item-detail-image">
+                            <img src="<?php echo $image_path; ?>" alt="<?php echo htmlspecialchars($item['title']); ?>">
                         <?php else: ?>
-                            <div class="item-detail-image-placeholder">
+                            <div class="detail-image-placeholder">
                                 <span>Tidak Ada Gambar</span>
                             </div>
                         <?php endif; ?>
                     </div>
                     
-                    <div class="item-detail-info">
-                        <h3><?php echo htmlspecialchars($item['title']); ?></h3>
-                        <p><strong>Kategori:</strong> <?php echo htmlspecialchars($item['nama_kategori'] ?? 'Tidak ada kategori'); ?></p>
+                    <div class="detail-info-wrapper">
                         
-                        <p><strong>Deskripsi:</strong></p>
-                        <div class="item-description">
+                        <h2><?php echo htmlspecialchars($item['title']); ?></h2>
+                        
+                        <p class="kategori-label">Kategori:</p>
+                        <p class="kategori-nama">
+                            <b><?php echo htmlspecialchars($item['nama_kategori'] ?? 'N/A'); ?></b>
+                        </p>
+                        
+                        <p class="deskripsi-label">Deskripsi:</p>
+                        <div class="deskripsi-isi">
                             <?php echo nl2br(htmlspecialchars($item['description'] ?: 'Tidak ada deskripsi.')); ?>
                         </div>
-                        <hr class="detail-divider">
                         
-                        <div class="booking-action-container">
+                        <div class="detail-button-group">
+                            
+                            <a href="catalog.php#services" class="btn-secondary">Kembali</a>
+                            
                             <?php if (isset($_SESSION['user_id'])): ?>
                                 <?php if ($_SESSION['role'] == 'user'): ?>
-                                    <a href="booking/booking.php?item_id=<?php echo $item['id']; ?>" class="btn-submit booking-btn">Sewa Sekarang</a>
+                                    <a href="booking/booking.php?item_id=<?php echo $item['id']; ?>" class="btn">Sewa Sekarang</a>
                                 <?php else: ?>
-                                    <p class_="booking-info">Anda login sebagai Admin. Hanya user yang bisa menyewa.</p>
+                                    <p style="text-align: center; flex: 1; margin: 0; align-self: center;">Hanya user yang bisa menyewa.</p>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <a href="../auth/login.php" class="btn-submit booking-btn">Login untuk Menyewa</a>
+                                <a href="../auth/login.php" class="btn">Login untuk Menyewa</a>
                             <?php endif; ?>
+                        
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
         </section>
     </main>
     
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Sistem Sewa Alat Outdoor & Camping</p>
+            <p>&copy; <?php echo date('Y'); ?> Sistem Sewa Alat Outdoor & Camping</p>
         </div>
     </footer>
     

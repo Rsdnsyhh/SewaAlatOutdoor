@@ -22,7 +22,7 @@ try {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistem Sewa Alat Outdoor & Camping</title>
+    <title>Sewa Alat Outdoor & Camping</title>
     <link rel="stylesheet" href="../public/css/style.css">
     </head>
     <body>
@@ -46,8 +46,8 @@ try {
             <button class="dark-mode-toggle" id="darkModeToggle">Dark Mode</button>
         </div>
         
-        <h1 class="logo">Sistem Sewa Alat Outdoor & Camping</h1>
-        <p class="tagline">Solusi mudah untuk menyewa perlengkapan outdoor dan camping.</p>
+        <h1 class="logo">Sewa Alat Outdoor</h1>
+        <p class="tagline">Perlengkapan lengkap untuk petualangan Anda. Mudah & Terpercaya.</p>
         <nav class="navigation">
             <ul class="nav-list">
             <li class="nav-item"><a href="#about" class="nav-link">Tentang</a></li>
@@ -76,8 +76,15 @@ try {
 
         <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">Tentang</h2>
-            <p>Kami menyediakan berbagai macam perlengkapan outdoor dan camping dengan kualitas terbaik dan harga terjangkau. Mulai dari tenda, sleeping bag, hingga peralatan masak, semua tersedia untuk mendukung petualangan Anda.</p>
+            <h2 class="section-title">Tentang Kami</h2>
+            <p style="font-size: 1.1em; max-width: 800px; margin: 0 auto 20px auto;">
+                Selamat datang! Kami adalah solusi satu atap Anda untuk semua kebutuhan perlengkapan petualangan. 
+                Kami hanya menyediakan alat berkualitas yang terawat baik untuk memastikan keamanan dan kenyamanan Anda.
+            </p>
+            <p style="max-width: 800px; margin: 0 auto;">
+                Misi kami adalah membuat petualangan Anda lebih mudah dan terjangkau. 
+                Fokus saja pada pendakian Anda, biarkan kami yang siapkan peralatannya.
+            </p>
         </div>
         </section>
 
@@ -109,10 +116,10 @@ try {
                             <h3 class="card-title"><?php echo htmlspecialchars($item['title']); ?></h3>
                             <p class="card-description">
                                 <?php 
-                                // Potong deskripsi jika terlalu panjang
+                                // Batas karakter diperpanjang menjadi 110
                                 $desc = htmlspecialchars($item['description'] ?? '');
-                                if (strlen($desc) > 80) {
-                                    echo substr($desc, 0, 80) . '...';
+                                if (strlen($desc) > 110) {
+                                    echo substr($desc, 0, 110) . '...';
                                 } else {
                                     echo $desc ?: 'Klik untuk detail...';
                                 }
@@ -130,21 +137,23 @@ try {
         <div class="container">
             <h2 class="section-title">Cara Sewa</h2>
             <ol class="how-list">
-            <li class="how-item">Registrasi / Login akun Anda.</li>
-            <li class="how-item">Pilih perlengkapan dan lihat detailnya.</li>
-            <li class="how-item">Klik "Sewa Sekarang" dan isi tanggal peminjaman.</li>
-            <li class="how-item">Konfirmasi pesanan dan tunggu admin menyetujui.</li>
+            <li class="how-item"><b>1. Cari & Pilih Alat:</b> Telusuri katalog dan pilih alat yang Anda butuhkan.</li>
+            <li class="how-item"><b>2. Tentukan Tanggal:</b> Masuk ke akun Anda, lalu tentukan tanggal sewa.</li>
+            <li class="how-item"><b>3. Konfirmasi & Ambil:</b> Tunggu konfirmasi admin, lalu ambil barang di basecamp.</li>
             </ol>
         </div>
         </section>
 
         <section id="contact" class="section">
         <div class="container">
-            <h2 class="section-title">Kontak</h2>
-            <address class="contact-address">
-            <p>Email: sewaalatoutdoorcamping@gmail.com</p>
-            <p>Telp: 0821-4869-9022</p>
-            <p id="contact-status"></p>
+            <h2 class="section-title">Kontak Kami</h2>
+            <p style="font-size: 1.1em; margin-bottom: 25px;">
+                Ada pertanyaan? Tim kami siap membantu merencanakan kebutuhan petualangan Anda.
+            </p>
+            <address class="contact-address" style="font-style: normal; line-height: 1.8;">
+                <p><b>Email:</b> sewaalatoutdoorcamping@gmail.com</p>
+                <p><b>Telp/WA:</b> 0821-4869-9022</p>
+                <p id="contact-status"></p>
             </address>
         </div>
         </section>
@@ -152,7 +161,7 @@ try {
 
     <footer class="footer">
         <div class="container">
-        <p>&copy; 2025 Sistem Sewa Alat Outdoor & Camping</p>
+        <p>&copy; <?php echo date('Y'); ?> Sewa Alat Outdoor. Semua Hak Dilindungi.</p>
         </div>
     </footer>
 

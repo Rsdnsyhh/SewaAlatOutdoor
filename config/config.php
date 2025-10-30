@@ -19,6 +19,6 @@ try {
     throw new \PDOException("Koneksi database gagal. Periksa kembali konfigurasi Anda.", (int)$e->getCode());
 }
 
-// Definisikan konstanta direktori upload
-define('UPLOAD_DIR', '../public/images/uploads/');
+// Direktori upload gambar produk
+define('UPLOAD_DIR', '../public/images/products/');
 ?>
