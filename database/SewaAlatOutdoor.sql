@@ -81,14 +81,7 @@ INSERT INTO items (title, id_kategori, description, image) VALUES
   (SELECT id_kategori FROM categories WHERE nama_kategori = 'Alat Tidur'),
   'Matras gulung standar berbahan spons. Efektif menahan dingin dari tanah. Alas tidur yang simpel, ringan, dan mudah dibersihkan.',
   'matras_gulung.jpeg'
-),
-(
-  'Tas Carrier 60L',
-  (SELECT id_kategori FROM categories WHERE nama_kategori = 'Tas & Carrier'),
-  'Tas carrier 60L dengan backsystem busa tebal yang nyaman. Banyak kompartemen untuk barang. Cocok untuk pendakian 3-4 hari.',
-  NULL -- Ganti NULL dengan 'namafile.jpeg' jika Anda sudah punya gambarnya
 );
-
 
 -- 5. Tabel Penyewaan (Booking)
 CREATE TABLE IF NOT EXISTS rentals (
