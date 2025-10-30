@@ -1,3 +1,8 @@
+/* ==========================================================
+ * COPY SELURUH ISI FILE INI KE: public/css/style.css
+ * Ganti semua isi file style.css lama dengan file ini
+ * ========================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -424,20 +429,6 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     color: var(--dm-secondary-color);
 }
 
-@media (max-width: 480px) {
-    .password-wrapper input[type="password"],
-    .password-wrapper input[type="text"] {
-        padding-right: 45px;
-    }
-    .toggle-password {
-        right: 10px;
-    }
-    .toggle-password svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-
 .form-group-admin select {
     -webkit-appearance: none; 
     -moz-appearance: none; 
@@ -474,33 +465,195 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     background-color: var(--secondary-color); 
 }
 
+/* ========================================
+   DASHBOARD STATISTICS GRID
+   ======================================== */
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border-color: var(--secondary-color);
+}
+
+.stat-card h3 {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.stat-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0 0 20px 0;
+    font-weight: 500;
+}
+
+.stat-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    display: inline-block;
+}
+
+.stat-card a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.dark-mode .stat-card {
+    background: var(--dm-card-bg);
+    border-color: #4a5568;
+}
+
+.dark-mode .stat-card h3 {
+    color: var(--dm-secondary-color);
+}
+
+.dark-mode .stat-card p {
+    color: #cbd5e0;
+}
+
+.dark-mode .stat-card a {
+    color: var(--dm-secondary-color);
+}
+
+.dark-mode .stat-card:hover {
+    border-color: var(--dm-secondary-color);
+}
+
+/* ========================================
+   TABLE KELOLA ALAT & PESANAN
+   ======================================== */
+
 .admin-table {
     width: 100%; 
     border-collapse: collapse; 
     margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; 
     overflow: hidden;
-    table-layout: fixed;
+    background-color: #fff;
 }
 
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
     margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .admin-table th, .admin-table td {
-    padding: 12px 15px; 
+    padding: 15px; 
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e0e0e0;
     word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .admin-table th { 
     background-color: var(--primary-color); 
     color: var(--light-color); 
     font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.admin-table-img {
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover;
+    border-radius: 8px; 
+    border: 2px solid #e0e0e0;
+    display: block;
+    margin: 0 auto;
+}
+
+.dark-mode .admin-table { 
+    background-color: var(--dm-card-bg);
+}
+
+.dark-mode .admin-table th { 
+    background-color: #1a365d;
+}
+
+.dark-mode .admin-table td { 
+    border-bottom: 1px solid #4a5568;
+    color: var(--dm-text-color); 
+}
+
+.dark-mode .admin-table-img { 
+    border-color: #4a5568; 
+}
+
+.admin-table tr:nth-child(even) { 
+    background-color: #f9f9f9; 
+}
+
+.admin-table tr:hover { 
+    background-color: #f1f1f1; 
+}
+
+.dark-mode .admin-table tr:nth-child(even) { 
+    background-color: #1a3240; 
+}
+
+.dark-mode .admin-table tr:hover { 
+    background-color: #374151; 
+}
+
+.no-image-placeholder { 
+    font-size: 0.9em; 
+    font-style: italic; 
+    color: #888; 
+    display: block;
+    text-align: center;
+}
+
+.admin-table.items-table th:nth-child(1),
+.admin-table.items-table td:nth-child(1) {
+    width: 12%;
+    text-align: center;
+}
+
+.admin-table.items-table th:nth-child(2),
+.admin-table.items-table td:nth-child(2) {
+    width: 28%;
+}
+
+.admin-table.items-table th:nth-child(3),
+.admin-table.items-table td:nth-child(3) {
+    width: 18%;
+}
+
+.admin-table.items-table th:nth-child(4),
+.admin-table.items-table td:nth-child(4) {
+    width: 16%;
+}
+
+.admin-table.items-table th:nth-child(5),
+.admin-table.items-table td:nth-child(5) {
+    width: 26%;
 }
 
 .admin-table.rentals-table th:nth-child(1),
@@ -532,114 +685,59 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
 .admin-table.rentals-table td:nth-child(6) {
     width: 18%;
     text-align: center;
-    padding-left: 30px;
 }
 
-.admin-table.items-table th:nth-child(1),
-.admin-table.items-table td:nth-child(1) {
-    width: 10%;
-    text-align: center;
-}
-
-.admin-table.items-table th:nth-child(2),
-.admin-table.items-table td:nth-child(2) {
-    width: 28%;
-}
-
-.admin-table.items-table th:nth-child(3),
-.admin-table.items-table td:nth-child(3) {
-    width: 16%;
-}
-
-.admin-table.items-table th:nth-child(4),
-.admin-table.items-table td:nth-child(4) {
-    width: 14%;
-}
-
-.admin-table.items-table th:nth-child(5),
-.admin-table.items-table td:nth-child(5) {
-    width: 32%;
-    text-align: left;
-    padding-left: 0;
-}
-
-.admin-table tr:nth-child(even) { 
-    background-color: #f9f9f9; 
-}
-
-.admin-table tr:hover { 
-    background-color: #f1f1f1; 
-}
-
-.dark-mode .admin-table th { 
-    background-color: var(--dm-secondary-color); 
-    color: var(--dm-primary-color); 
-}
-
-.dark-mode .admin-table td { 
-    border-bottom: 1px solid var(--primary-color); 
-}
-
-.dark-mode .admin-table tr { 
-    background-color: var(--dm-card-bg); 
-}
-
-.dark-mode .admin-table tr:nth-child(even) { 
-    background-color: #1a3240; 
-}
-
-.dark-mode .admin-table tr:hover { 
-    background-color: var(--tertiary-color); 
-}
+/* ========================================
+   TOMBOL AKSI
+   ======================================== */
 
 .action-links {
     display: flex;
     gap: 8px;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 0 0 0 30px;
+    justify-content: center;
 }
 
 .action-link, .action-link button {
     font-family: inherit; 
     font-size: 0.85em;
-    padding: 6px 10px;
-    border-radius: 5px; 
+    padding: 8px 14px;
+    border-radius: 6px; 
     text-decoration: none; 
     cursor: pointer;
-    font-weight: bold; 
+    font-weight: 600; 
     border: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
     display: inline-block;
 }
 
 .action-link.detail { 
-    background-color: #3498db; 
+    background-color: #17a2b8; 
     color: white; 
 }
 
 .action-link.edit { 
-    background-color: #f1c40f; 
+    background-color: #ffc107; 
     color: #333; 
 }
 
 .action-link.delete { 
-    background-color: #e74c3c; 
+    background-color: #dc3545; 
     color: white; 
 }
 
 .action-link.detail:hover { 
-    background-color: #2980b9; 
+    background-color: #138496; 
 }
 
 .action-link.edit:hover { 
-    background-color: #d4ac0d; 
+    background-color: #e0a800; 
 }
 
 .action-link.delete:hover { 
-    background-color: #c0392b; 
+    background-color: #c82333; 
 }
 
 .action-links form { 
@@ -717,29 +815,6 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     color: var(--dm-primary-color);
 }
 
-.admin-table-img {
-    max-width: 100%;
-    width: 80px; 
-    height: 60px; 
-    object-fit: cover;
-    border-radius: 5px; 
-    border: 1px solid #ddd;
-    display: block;
-    margin: 0 auto;
-}
-
-.dark-mode .admin-table-img { 
-    border-color: #555; 
-}
-
-.no-image-placeholder { 
-    font-size: 0.9em; 
-    font-style: italic; 
-    color: #888; 
-    display: block;
-    text-align: center;
-}
-
 .admin-form-preview {
     max-width: 250px; 
     height: auto; 
@@ -754,53 +829,9 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     background-color: #1a3240;
 }
 
-@media (max-width: 768px) {
-    .admin-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-    
-    .admin-table th,
-    .admin-table td {
-        padding: 10px 12px;
-        font-size: 0.9em;
-    }
-    
-    .action-link {
-        font-size: 0.8em;
-        padding: 5px 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    .admin-table th,
-    .admin-table td {
-        padding: 8px 10px;
-        font-size: 0.85em;
-    }
-    
-    .admin-table-img {
-        width: 60px;
-        height: 45px;
-    }
-    
-    .action-links {
-        flex-direction: row;
-        gap: 4px;
-        justify-content: center;
-    }
-    
-    .action-link {
-        font-size: 0.75em;
-        padding: 4px 8px;
-    }
-}
-
-/* * ==========================================================
- * == BAGIAN PERBAIKAN UNTUK KATALOG PRODUK ==
- * ==========================================================
- */
+/* ==========================================================
+   KATALOG PRODUK
+   ========================================================== */
 
 .product-card-grid {
     display: grid;
@@ -862,47 +893,26 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     flex-direction: column;
 }
 
-/* * ==========================================================
- * == PERBAIKAN TEKS KARTU (LEBIH KECIL) ==
- * ==========================================================
- */
-
 .product-card .product-card-category {
-    font-size: 0.85em; /* Dikecilkan */
+    font-size: 0.85em;
     color: #888;
-    margin-bottom: 8px; /* Jarak dikecilkan */
+    margin-bottom: 8px;
 }
 
 .dark-mode .product-card .product-card-category {
     color: #aaa;
 }
 
-.product-card .card-title {
-    font-size: 1.15em;  /* Dikecilkan */
-    color: var(--secondary-color);
-    margin-bottom: 8px; /* Jarak dikecilkan */
-}
-
-.dark-mode .product-card .card-title {
-    color: var(--dm-secondary-color);
-}
-
 .product-card .card-description {
-    font-size: 0.9em;  /* Dikecilkan */
+    font-size: 0.9em;
     color: #555;
-    line-height: 1.4;  /* Dirapatkan */
+    line-height: 1.4;
     margin-top: auto; 
 }
 
 .dark-mode .product-card .card-description {
     color: #ccc;
 }
-
-
-/* * ==========================================================
- * == PERBAIKAN TEKS (RATA TENGAH) UNTUK HALAMAN ==
- * ==========================================================
- */
 
 #about .container {
     text-align: center;
@@ -918,14 +928,13 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     margin: 0 auto;
 }
 
-/* * ==========================================================
- * == PERBAIKAN UNTUK HALAMAN DETAIL PRODUK ==
- * ==========================================================
- */
+/* ==========================================================
+   HALAMAN DETAIL PRODUK
+   ========================================================== */
 
 .detail-container {
     display: flex;
-    flex-wrap: wrap; /* Agar bisa stack di HP */
+    flex-wrap: wrap;
     gap: 30px;
     padding: 30px;
     background-color: #fff;
@@ -936,7 +945,7 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
 }
 
 .detail-image-wrapper {
-    flex: 1; /* Lebar 1 bagian */
+    flex: 1;
     min-width: 300px;
 }
 
@@ -961,7 +970,7 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
 }
 
 .detail-info-wrapper {
-    flex: 1.5; /* Lebar 1.5 bagian */
+    flex: 1.5;
     min-width: 300px;
     display: flex;
     flex-direction: column; 
@@ -1035,7 +1044,6 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     background-color: #e0e0e0;
 }
 
-/* Menyesuaikan style tombol dari detail.php sebelumnya */
 .booking-action-container {
     margin-top: auto;
     padding-top: 25px;
@@ -1043,6 +1051,7 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     gap: 15px;
     flex-wrap: wrap;
 }
+
 .btn-submit.booking-btn,
 .btn-secondary.booking-btn {
     text-decoration: none;
@@ -1055,8 +1064,9 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     transition: all 0.3s ease;
     text-align: center;
     flex: 1; 
-    width: auto; /* Override .btn-submit */
+    width: auto;
 }
+
 .btn-submit.booking-btn {
     background-color: var(--primary-color);
     color: white;
@@ -1064,6 +1074,7 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
 .btn-submit.booking-btn:hover {
     background-color: var(--secondary-color);
 }
+
 .btn-secondary.booking-btn {
     background-color: #f0f0f0;
     color: #333;
@@ -1073,13 +1084,137 @@ h1, h2, h3 { color: var(--primary-color); line-height: 1.2; }
     background-color: #e0e0e0;
 }
 
+.dark-mode .detail-container { 
+    background-color: var(--dm-card-bg); 
+}
 
-/* Dark Mode */
-.dark-mode .detail-container { background-color: var(--dm-card-bg); }
-.dark-mode .detail-image-wrapper img { border-color: #555; }
-.dark-mode .detail-image-placeholder { background-color: #1a3240; color: #aaa; border-color: #555; }
+.dark-mode .detail-image-wrapper img { 
+    border-color: #555; 
+}
+
+.dark-mode .detail-image-placeholder { 
+    background-color: #1a3240; 
+    color: #aaa; 
+    border-color: #555; 
+}
+
 .dark-mode .detail-info-wrapper .kategori-label,
-.dark-mode .detail-info-wrapper .deskripsi-label { color: var(--dm-secondary-color); }
-.dark-mode .detail-info-wrapper .deskripsi-isi { background-color: #1a3240; }
-.dark-mode .btn-secondary { background-color: #333; color: #eee; border-color: #555; }
-.dark-mode .btn-secondary.booking-btn { background-color: #333; color: #eee; border-color: #555; }
+.dark-mode .detail-info-wrapper .deskripsi-label { 
+    color: var(--dm-secondary-color); 
+}
+
+.dark-mode .detail-info-wrapper .deskripsi-isi { 
+    background-color: #1a3240; 
+}
+
+.dark-mode .btn-secondary { 
+    background-color: #333; 
+    color: #eee; 
+    border-color: #555; 
+}
+
+.dark-mode .btn-secondary.booking-btn { 
+    background-color: #333; 
+    color: #eee; 
+    border-color: #555; 
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN
+   ========================================================== */
+
+@media (max-width: 768px) {
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .stat-card h3 {
+        font-size: 2.5rem;
+    }
+    
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    
+    .admin-table-img {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .action-link {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card h3 {
+        font-size: 2rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+    
+    .admin-table-img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .action-links {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-link {
+        font-size: 0.75em;
+        padding: 6px 12px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .password-wrapper input[type="password"],
+    .password-wrapper input[type="text"] {
+        padding-right: 45px;
+    }
+    
+    .toggle-password {
+        right: 10px;
+    }
+    
+    .toggle-password svg {
+        width: 16px;
+        height: 16px;
+    }
+}d-title {
+    font-size: 1.15em;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.dark-mode .product-card .card-title {
+    color: var(--dm-secondary-color);
+}
+
+.product-card .card-description {
+    font-size: 0.9em;
+    color: #555;
+    line-height: 1.4;
+    margin-top: auto; 
+}

@@ -18,7 +18,9 @@ $page_files = [
     'items_create' => 'items/items_create.php',
     'items_edit' => 'items/items_edit.php',
     'items_detail' => 'items/items_detail.php',
-    'rentals_list' => 'rentals/rentals_list.php'
+    'rentals_list' => 'rentals/rentals_list.php',
+    'users_list' => 'users/users_list.php',              // BARU
+    'categories_list' => 'categories/categories_list.php' // BARU
 ];
 
 // Validasi halaman
@@ -27,12 +29,6 @@ if (!isset($page_files[$page])) {
 }
 
 $page_file = $page_files[$page];
-
-// DEBUG: Cek apakah file ada
-$debug_msg = '';
-if (!file_exists($page_file)) {
-    $debug_msg = "File tidak ditemukan: " . $page_file . " (Lokasi: " . __DIR__ . ")";
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -67,12 +63,15 @@ if (!file_exists($page_file)) {
 
                 <button class="dark-mode-toggle" id="darkModeToggle">Dark Mode</button>
             </div>
+            
             <nav class="navigation">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="dashboard.php?page=dashboard_home" class="nav-link">Dashboard</a></li>
                     <li class="nav-item"><a href="dashboard.php?page=rentals_list" class="nav-link">Kelola Pesanan</a></li>
                     <li class="nav-item"><a href="dashboard.php?page=items_list" class="nav-link">Kelola Alat</a></li>
                     <li class="nav-item"><a href="dashboard.php?page=items_create" class="nav-link">Tambah Alat</a></li>
+                    <li class="nav-item"><a href="dashboard.php?page=users_list" class="nav-link">Kelola User</a></li>
+                    <li class="nav-item"><a href="dashboard.php?page=categories_list" class="nav-link">Kelola Kategori</a></li>
                 </ul>
             </nav>
         </div>
@@ -92,18 +91,14 @@ if (!file_exists($page_file)) {
                     unset($_SESSION['message_type']);
                 }
 
-                // DEBUG: Tampilkan info jika file tidak ditemukan
-                if ($debug_msg) {
-                    echo '<div class="message-alert error"><strong>DEBUG INFO:</strong> ' . $debug_msg . '</div>';
-                }
-
                 // Muat konten halaman
                 if (file_exists($page_file)) {
                     include $page_file;
                 } else {
-                    echo '<p style="text-align: center; color: red;"><strong>Error: File konten tidak ditemukan.</strong></p>';
-                    echo '<p style="text-align: center; color: red;">File yang dicari: <code>' . htmlspecialchars($page_file) . '</code></p>';
-                    echo '<p style="text-align: center; color: red;">Lokasi: <code>' . htmlspecialchars(__DIR__) . '</code></p>';
+                    echo '<div class="message-alert error">';
+                    echo '<strong>Error:</strong> File konten tidak ditemukan.';
+                    echo '<br>File yang dicari: <code>' . htmlspecialchars($page_file) . '</code>';
+                    echo '</div>';
                 }
                 ?>
 

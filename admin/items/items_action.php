@@ -1,37 +1,47 @@
 <?php
+// File: admin/items/items_action.php
 session_start();
 require '../../config/config.php';
 
+// Keamanan: Hanya admin yang boleh akses
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     die("Akses ditolak.");
 }
 
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    die("Metode request tidak valid.");
-}
-
+// Konfigurasi Upload
+define('UPLOAD_DIR', '../../public/images/products/');
 $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-$max_size = 2 * 1024 * 1024; // 2MB
-$action = $_GET['action'] ?? '';
+$max_size = 5 * 1024 * 1024; // 5MB
 
 // Fungsi helper upload
 function handleUpload($file) {
     global $allowed_types, $max_size;
+    
     if ($file['error'] !== UPLOAD_ERR_OK) {
         return ['success' => false, 'message' => 'Error upload: ' . $file['error']];
     }
+    
     if ($file['size'] > $max_size) {
-        return ['success' => false, 'message' => 'Ukuran file maks 2MB.'];
+        return ['success' => false, 'message' => 'Ukuran file maksimal 5MB.'];
     }
-    if (!in_array($file['type'], $allowed_types)) {
-        return ['success' => false, 'message' => 'Tipe file tidak diizinkan.'];
+    
+    // Cek MIME type
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+    
+    if (!in_array($mime, $allowed_types)) {
+        return ['success' => false, 'message' => 'Tipe file tidak diizinkan. Hanya JPG, PNG, GIF, WebP.'];
     }
 
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     $filename = uniqid('item_') . '.' . $extension;
+    $target_file = UPLOAD_DIR . $filename;
     
-    // Target path: naik 3 level (dari admin/items/) ke root, lalu ke public/images/uploads/
-    $target_file = '../../../' . UPLOAD_DIR . $filename;
+    // Pastikan folder ada
+    if (!is_dir(UPLOAD_DIR)) {
+        mkdir(UPLOAD_DIR, 0755, true);
+    }
 
     if (move_uploaded_file($file['tmp_name'], $target_file)) {
         return ['success' => true, 'filename' => $filename];
@@ -40,24 +50,39 @@ function handleUpload($file) {
     }
 }
 
-// Fungsi helper delete
+// Fungsi helper delete file
 function deleteImageFile($filename) {
     if (empty($filename)) return;
-    // Path unlink: naik 3 level (dari admin/items/) ke root, lalu ke public/images/uploads/
-    $filepath = '../../../' . UPLOAD_DIR . $filename;
+    $filepath = UPLOAD_DIR . $filename;
     if (file_exists($filepath)) {
         @unlink($filepath);
     }
 }
 
+// Ambil action dari GET atau POST
+$action = $_GET['action'] ?? $_POST['action'] ?? '';
+
 try {
     switch ($action) {
+        // ========================================
+        // CREATE - Tambah Alat Baru
+        // ========================================
         case 'create':
-            $title = $_POST['title'];
-            $id_kategori = $_POST['id_kategori'];
-            $description = $_POST['description'] ?? null;
-            $price = $_POST['price_per_day'];
-            $stock = $_POST['stock'];
+            if ($_SERVER["REQUEST_METHOD"] != "POST") {
+                die("Metode request tidak valid.");
+            }
+            
+            $title = trim($_POST['title'] ?? '');
+            $id_kategori = $_POST['id_kategori'] ?? null;
+            $description = trim($_POST['description'] ?? '');
+            
+            // Validasi input
+            if (empty($title)) {
+                $_SESSION['message'] = 'Judul alat harus diisi!';
+                $_SESSION['message_type'] = 'error';
+                header("Location: ../dashboard.php?page=items_create");
+                exit();
+            }
             
             $image_filename = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
@@ -72,24 +97,38 @@ try {
                 }
             }
             
-            $sql = "INSERT INTO items (title, id_kategori, description, price_per_day, stock, image) VALUES (?, ?, ?, ?, ?, ?)";
-            $pdo->prepare($sql)->execute([$title, $id_kategori, $description, $price, $stock, $image_filename]);
+            $sql = "INSERT INTO items (title, id_kategori, description, image) VALUES (?, ?, ?, ?)";
+            $pdo->prepare($sql)->execute([$title, $id_kategori, $description, $image_filename]);
 
             $_SESSION['message'] = 'Alat baru berhasil ditambahkan!';
             $_SESSION['message_type'] = 'success';
             header("Location: ../dashboard.php?page=items_list");
             exit();
 
+        // ========================================
+        // UPDATE - Edit Alat
+        // ========================================
         case 'update':
-            $id = $_POST['id'];
-            $title = $_POST['title'];
-            $id_kategori = $_POST['id_kategori'];
-            $description = $_POST['description'] ?? null;
-            $price = $_POST['price_per_day'];
-            $stock = $_POST['stock'];
-            $existing_image = $_POST['existing_image'];
+            if ($_SERVER["REQUEST_METHOD"] != "POST") {
+                die("Metode request tidak valid.");
+            }
+            
+            $id = intval($_POST['id'] ?? 0);
+            $title = trim($_POST['title'] ?? '');
+            $id_kategori = $_POST['id_kategori'] ?? null;
+            $description = trim($_POST['description'] ?? '');
+            $existing_image = $_POST['existing_image'] ?? '';
             $image_filename = $existing_image;
+            
+            // Validasi input
+            if (empty($title)) {
+                $_SESSION['message'] = 'Judul alat harus diisi!';
+                $_SESSION['message_type'] = 'error';
+                header("Location: ../dashboard.php?page=items_edit&id=" . $id);
+                exit();
+            }
 
+            // Handle upload gambar baru (opsional)
             if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
                 $upload = handleUpload($_FILES['image']);
                 if ($upload['success']) {
@@ -103,31 +142,56 @@ try {
                 }
             }
 
-            $sql = "UPDATE items SET title=?, id_kategori=?, description=?, price_per_day=?, stock=?, image=? WHERE id=?";
-            $pdo->prepare($sql)->execute([$title, $id_kategori, $description, $price, $stock, $image_filename, $id]);
+            $sql = "UPDATE items SET title=?, id_kategori=?, description=?, image=? WHERE id=?";
+            $pdo->prepare($sql)->execute([$title, $id_kategori, $description, $image_filename, $id]);
 
             $_SESSION['message'] = 'Alat berhasil diperbarui!';
             $_SESSION['message_type'] = 'success';
             header("Location: ../dashboard.php?page=items_list");
             exit();
 
+        // ========================================
+        // DELETE - Hapus Alat (Support GET & POST)
+        // ========================================
         case 'delete':
-            $id = $_POST['id'];
+            // Support both GET and POST
+            $id = 0;
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $id = intval($_POST['id'] ?? 0);
+            } else {
+                $id = intval($_GET['id'] ?? 0);
+            }
             
+            if ($id <= 0) {
+                $_SESSION['message'] = 'ID tidak valid!';
+                $_SESSION['message_type'] = 'error';
+                header("Location: ../dashboard.php?page=items_list");
+                exit();
+            }
+            
+            // Ambil nama file gambar sebelum dihapus
             $stmt = $pdo->prepare("SELECT image FROM items WHERE id = ?");
             $stmt->execute([$id]);
-            $item = $stmt->fetch();
+            $item = $stmt->fetch(PDO::FETCH_ASSOC);
             $image_to_delete = $item['image'] ?? null;
 
-            $pdo->prepare("DELETE FROM items WHERE id = ?")->execute([$id]);
+            // Hapus data dari database
+            $stmt = $pdo->prepare("DELETE FROM items WHERE id = ?");
+            $stmt->execute([$id]);
             
-            deleteImageFile($image_to_delete);
+            // Hapus file gambar jika ada
+            if ($image_to_delete) {
+                deleteImageFile($image_to_delete);
+            }
 
             $_SESSION['message'] = 'Alat berhasil dihapus.';
             $_SESSION['message_type'] = 'success';
             header("Location: ../dashboard.php?page=items_list");
             exit();
 
+        // ========================================
+        // DEFAULT - Action tidak dikenali
+        // ========================================
         default:
             $_SESSION['message'] = 'Aksi tidak dikenali.';
             $_SESSION['message_type'] = 'error';
@@ -140,4 +204,3 @@ try {
     header("Location: ../dashboard.php?page=items_list");
     exit();
 }
-?>

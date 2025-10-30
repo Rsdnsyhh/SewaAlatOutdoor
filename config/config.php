@@ -1,4 +1,8 @@
 <?php
+// tampilkan hanya error penting (untuk development)
+error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors', 1);
+
 // Konfigurasi Database
 $db_host = 'localhost';
 $db_name = 'SewaAlatOutdoor';

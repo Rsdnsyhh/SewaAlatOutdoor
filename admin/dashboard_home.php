@@ -1,5 +1,5 @@
 <?php
-// File ini di-include dari dashboard.php, jadi $pdo sudah tersedia
+
 if (!isset($pdo)) {
     header("Location: dashboard.php");
     exit();
@@ -19,13 +19,15 @@ try {
     $total_categories = $pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn();
 
 } catch (PDOException $e) {
-    echo '<div class="message-alert error">Gagal memuat statistik: ' . $e->getMessage() . '</div>';
+    echo '<div class="message-alert error">Gagal memuat statistik: ' . htmlspecialchars($e->getMessage()) . '</div>';
     $total_items = $total_rentals = $total_users = $total_categories = 'N/A';
 }
 ?>
 
 <h2 class="section-title">Dashboard</h2>
-<p style="text-align: center; margin-top: -20px; margin-bottom: 30px;">Ringkasan status sistem Anda saat ini.</p>
+<p style="text-align: center; margin-top: -20px; margin-bottom: 30px; color: #666;">
+    Ringkasan status sistem Anda saat ini.
+</p>
 
 <div class="stat-grid">
     <div class="stat-card">
@@ -41,11 +43,11 @@ try {
     <div class="stat-card">
         <h3><?php echo $total_users; ?></h3>
         <p>Total User</p>
-        <a href="#">Lihat Detail &rarr;</a>
+        <a href="dashboard.php?page=users_list">Lihat Detail &rarr;</a>
     </div>
     <div class="stat-card">
         <h3><?php echo $total_categories; ?></h3>
         <p>Total Kategori</p>
-        <a href="#">Lihat Detail &rarr;</a>
+        <a href="dashboard.php?page=categories_list">Lihat Detail &rarr;</a>
     </div>
 </div>
